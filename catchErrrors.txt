@@ -1,0 +1,15 @@
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.13.0:compile (default-compile) on project demo: Compilation failure: Compilation failure:
+[ERROR] /C:/Users/Enes/Desktop/Java+SpringBoot/demo/src/main/java/com/hello/FirstTouch/HelloWorldController.java:[4,2] cannot find symbol
+[ERROR]   symbol: class RestController
+[ERROR] /C:/Users/Enes/Desktop/Java+SpringBoot/demo/src/main/java/com/hello/FirstTouch/HelloWorldController.java:[7,6] cannot find symbol
+[ERROR]   symbol:   class GetMappping
+[ERROR]   location: class com.hello.FirstTouch.HelloWorldController
+[ERROR] -> [Help 1]
+[ERROR]
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR]
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+
+**** on current project folder ./mvnw clean install before the install lets check the error if you want install which one is underline red you should delete or make comment row

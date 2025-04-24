@@ -1,0 +1,47 @@
+(DTO yapısı, getter, setter, getmapping, postmapping, restcontroller, requestparams, notblank, hashmap,Response Entity, PathVariable gibi )
+
+list of the current folder:::::::::::: demo-1ParameterWithEndPoint-RestTypes-DTO-CustomerRestAPI
+
+
+*** run the current codes : ./mvnw spring-boot:run 
+
+***if you want change your code at the same time show for UI side checked;;;
+
+*pom-->
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-devtools</artifactId>
+    <scope>runtime</scope>
+</dependency>
+
+*on terminal-->
+./mvnw install clean
+
+than start normal ./mvnw spring-boot:run
+
+***requestparams( check with http:localhost:8080/api/message?value=SSSSS)
+
+
+***for NotBlank  -->pom.xml  on terminal ./mvnw install clean
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-validation</artifactId>
+</dependency>
+
+
+
+*************************
+Restful API + Layered Architecture
+
+dto: data transfer object you can here validation define(getter setter)
+
+
+
+
+
+
+
+
+
+ 
