@@ -1,6 +1,7 @@
-(DTO yapısı, getter, setter, getmapping, postmapping, restcontroller, requestparams, notblank, hashmap,Response Entity, PathVariable gibi )
+(DTO yapısı, getter, setter, getmapping, postmapping, restcontroller, requestparams, notblank, hashmap,Response Entity, PathVariable gibi, h2, autowired		 )
 
-list of the current folder:::::::::::: demo-1ParameterWithEndPoint-RestTypes-DTO-CustomerRestAPI
+list of the current folder:::::::::::: demo-1ParameterWithEndPoint-RestTypes-DTO-CustomerRestAPI-Database-CustomerORM-ProductWPostegreSQL-ManytoOne
+
 
 
 *** run the current codes : ./mvnw spring-boot:run 
@@ -37,11 +38,51 @@ Restful API + Layered Architecture
 dto: data transfer object you can here validation define(getter setter)
 
 
+***********************************************************
+🔧 Spring Boot Nedir?
+Java ile web uygulamaları geliştirmeyi kolaylaştıran bir çatı (framework)'dır.
+✔️ Hızlı başlatma sağlar.
+✔️ Otomatik yapılandırma (auto-configuration) sunar.
+✔️ REST API gibi servisleri kolayca oluşturmanı sağlar.
 
 
 
+ H2 Veritabanı Nedir?
+H2, Java tabanlı, hafif (lightweight), gömülü (embedded) bir veritabanıdır.
+✔️ Uygulama ile birlikte çalışır (ayrı kurulum gerekmez).
+✔️ Bellek içi (in-memory) çalışabilir, yani veriler uygulama kapanınca silinebilir.
+✔️ Geliştirme ve test için çok idealdir.
 
 
+for database h2 
+*** springstarter--->  jpa, h2,tools, web,validation
+http://localhost:8080/h2-console 	
+
+*************************************************************************
+Basit bir "Müşteri" (Customer) API'si:
+H2 veritabanı ile çalışır
+DTO kullanarak veri giriş-çıkışı yapar
+CRUD işlemleri içerir
+
+🧱 Yapı
+Customer (Entity)
+CustomerDTO (Sadece veri taşıma sınıfı)
+CustomerRepository (Veritabanı erişimi)
+CustomerService (İş mantığı)
+CustomerController (REST API uçları)
+
+*******************************************************************************	
+	AUTOWIRED
+
+
+private final CustomerRepository customerRepository 
+public CustomerService(CustomerRepository cs){
+customerRepository = cs 
+}
+
+bunun yerine direkt bunu sağlar
+@Autowired
+private CustomerRepository customerRepository
 
 
  

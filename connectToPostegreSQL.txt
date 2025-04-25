@@ -1,0 +1,2 @@
+ilk olarak pgadminden database bağlantısı kur 
+alttaki bağlantıları da o veritabanına göre ayarla

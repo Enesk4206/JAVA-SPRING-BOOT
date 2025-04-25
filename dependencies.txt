@@ -1,0 +1,6 @@
+lombok
+web
+postgresql
+jpa
+web tools
+validation
