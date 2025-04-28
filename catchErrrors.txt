@@ -13,3 +13,13 @@
 [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
 
 **** on current project folder ./mvnw clean install before the install lets check the error if you want install which one is underline red you should delete or make comment row
+
+
+
+
+
+
+
+
+
+

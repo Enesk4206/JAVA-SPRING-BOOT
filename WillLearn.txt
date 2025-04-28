@@ -1,0 +1,8 @@
+Partial Update (PATCH) → sadece adı ya da soyadı değişsin gibi.
+
+Pagination → çok fazla yazar olursa, sayfa sayfa çekmek.
+
+Arama (Search) → isme göre yazar aramak.
+
+
+List ve Set arasındaki fark 

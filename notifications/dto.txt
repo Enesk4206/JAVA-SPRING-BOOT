@@ -1,0 +1,151 @@
+entity ve dto birbirini benzeyen kavramlar ama aslında birbirlerinden farklıdırlar mesela dışarıya vermemiz gereken verileri entity ile veremeyiz çünkü veritabanı bağlantıları özel yapılar ve kullanıcıya verilmesi gerekli olmayan yapıları kendisinde tutar bu yüzden hep dto yapısı kurup kullanırız
+
+yani service kısmında özellikle hep dtoya çevirip kullanma gerekiyor bu da CRUD işlemlerini gidip Entity ile değil DTO ile kullanman gerektiğin anlamına geliyor işlem tabiki biraz daha uzayabiliyor
+
+*DTO kullanıcıya dönecek olan temiz veri modelini döndürür
+*Eğer direkt Entity dönersen kullanıcı backend modelini görür
+*güvenlik açığı
+*performans düşüşü
+*Create, update, delete, getbyuniqid, getall hepsi dto ile gelmeli
+
+*Dto da id belirtmelisin
+*CONTROLLERDA DA DTO KULLANMAK ZORUNDASIN
+
+
+İşlem 			| Giriş | Çıkış
+Yeni veri ekleme (POST)	 | DTO | DTO ya da Entity
+Güncelleme (PUT/PATCH) 	| DTO | DTO ya da Entity
+Silme (DELETE)		| ID | Boş (204) veya basit mesaj
+Getirme (GET) 		|- | DTO listesi
+
+
+***PRODUCTDTO
+
+    public class ProductDTO {
+    private Long id;
+    private String name;
+    private Double price;
+    private Integer quantity;
+
+    // Getter Setter
+}
+
+
+
+***PRODUCTSERVICE
+@Service
+public class ProductService {
+
+    private final ProductRepository productRepo;
+
+    public ProductService(ProductRepository productRepo) {
+        this.productRepo = productRepo;
+    }
+
+    // Tüm ürünleri getir
+    public List<ProductDTO> getAllProducts() {
+        List<Product> products = productRepo.findAll();
+        return products.stream()
+                .map(product -> new ProductDTO(product.getId(), product.getName(), product.getPrice(), product.getQuantity()))
+                .collect(Collectors.toList());
+    }
+
+    // ID'ye göre ürün getir
+    public ProductDTO getProductById(Long id) {
+        Product product = productRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+        return new ProductDTO(product.getId(), product.getName(), product.getPrice(), product.getQuantity());
+    }
+
+    // Yeni ürün oluştur
+    public ProductDTO createProduct(ProductDTO productDto) {
+        Product product = new Product();
+        product.setName(productDto.getName());
+        product.setPrice(productDto.getPrice());
+        product.setQuantity(productDto.getQuantity());
+
+        Product savedProduct = productRepo.save(product);
+        return new ProductDTO(savedProduct.getId(), savedProduct.getName(), savedProduct.getPrice(), savedProduct.getQuantity());
+    }
+
+    // Ürün güncelle
+    public ProductDTO updateProduct(Long id, ProductDTO productDto) {
+        Product product = productRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+
+        product.setName(productDto.getName());
+        product.setPrice(productDto.getPrice());
+        product.setQuantity(productDto.getQuantity());
+
+        Product updatedProduct = productRepo.save(product);
+        return new ProductDTO(updatedProduct.getId(), updatedProduct.getName(), updatedProduct.getPrice(), updatedProduct.getQuantity());
+    }
+
+    // Ürün sil
+    public void deleteProduct(Long id) {
+        Product product = productRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+        productRepo.delete(product);
+    }
+
+
+**********PRODUCTCONTROLLER
+
+package com.example.LibraryApp.controller;
+
+import com.example.LibraryApp.dto.ProductDTO;
+import com.example.LibraryApp.service.ProductService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/products") // Base path
+public class ProductController {
+
+    private final ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    // Tüm ürünleri getir
+    @GetMapping
+    public ResponseEntity<List<ProductDTO>> getAllProducts() {
+        List<ProductDTO> products = productService.getAllProducts();
+        return ResponseEntity.ok(products);
+    }
+
+    // ID'ye göre ürün getir
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable Long id) {
+        ProductDTO product = productService.getProductById(id);
+        return ResponseEntity.ok(product);
+    }
+
+    // Yeni ürün oluştur
+    @PostMapping
+    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
+        ProductDTO createdProduct = productService.createProduct(productDTO);
+        return ResponseEntity.ok(createdProduct);
+    }
+
+    // Ürün güncelle
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
+        ProductDTO updatedProduct = productService.updateProduct(id, productDTO);
+        return ResponseEntity.ok(updatedProduct);
+    }
+
+    // Ürün sil
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+        productService.deleteProduct(id);
+        return ResponseEntity.noContent().build();
+    }
+}
+
+
+
+

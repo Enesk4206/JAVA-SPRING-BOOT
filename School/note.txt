@@ -1,0 +1,52 @@
+
+***YÖNETİM MODELİM SINIF(LECTURE)
+
+1-N
+
+1öğretmen birden fazla derse 
+@OneToMany(mappedBy = "instructor")
+    private Set<Lecture> lectures;
+
+bir derse bir öğretmen girer
+@ManyToOne
+    @JoinColumn(name =  "instructor_id",nullable = false)
+    private Instructor instructor;
+
+
+
+************************************************************************************************
+N-N
+
+bir öğrenci birden fazla derse girer
+@ManyToMany(mappedBy = "lectures")
+    private Set<Lecture> lectures;
+
+bir derse birden fazla öğrenci girer
+@ManyToMany
+    @JoinTable(
+        name = "lecture_student",
+        joinColumns = @JoinColumn(name= "lecture_id"),
+        inverseJoinColumns = @JoinColumn(name= "student_id")
+    )
+    private Set<Student> students;
+
+
+
+
+
+
+*******************************ÖRNEK************************************************************
+@OneToMany(mappedBy = "author")
+private List<Book> books;
+****************************************    
+@ManyToOne
+@JoinColumn(name = "other_entity_id") 
+private OtherEntity otherEntity;
+
+
+
+*********************LECTURE(SINIF) ENTİTY YAPISI********************************************
+
+*temel crud eklenecek daha sonrasında-->
+*sınıfa öğretmen eklenip silinicek
+*sınıfa öğrenciler eklenip silinecek

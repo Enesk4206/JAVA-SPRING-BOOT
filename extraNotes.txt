@@ -2,6 +2,7 @@
 
 list of the current folder:::::::::::: demo-1ParameterWithEndPoint-RestTypes-DTO-CustomerRestAPI-Database-CustomerORM-ProductWPostegreSQL-ManytoOne
 
+***ALTER TABLE lecture ALTER COLUMN instructor_id DROP NOT NULL;
 
 
 *** run the current codes : ./mvnw spring-boot:run 
@@ -83,6 +84,21 @@ customerRepository = cs
 bunun yerine direkt bunu sağlar
 @Autowired
 private CustomerRepository customerRepository
+
+
+*****************************************************************************
+School projesi içerisinde manytomany ve manytoone yer alıyor
+
+
+
+
+
+
+
+
+
+
+
 
 
  
